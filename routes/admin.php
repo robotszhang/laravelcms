@@ -23,7 +23,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
 
         // ———————————————————————————权限管理—————————————————————————————————
         Route::group(['prefix' => 'manager_power'],function(){
-            Route::get('/', 'ManagerPowerController@index');//->middleware('can:manager_power');  //权限列表
+            Route::get('/', 'ManagerPowerController@index')->middleware('can:manager_power');  //权限列表
             Route::match(['post'],'/ajax_create', 'ManagerPowerController@ajaxCreate');//->middleware('can:manager_power_create');  //新增权限
             Route::match(['get','post'],'/edit','ManagerPowerController@edit');//->middleware('can:manager_power_edit');  //编辑权限
             Route::match(['post'],'/ajax_del','ManagerPowerController@ajaxDel');//->middleware('can:manager_power_del');  //删除权限

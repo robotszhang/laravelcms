@@ -44,9 +44,15 @@
                     <input type="text" class="form-control" id="url" name="url" placeholder="链接" style="width:400px;" value="" />
                     <small class="form-text text-muted">当填写外链时，文章内容将不显示</small>
                 </div>
-                <div class="form-group">
+                {{--<div class="form-group">
                     <label for="url">缩略图</label>
                     @include('admin.component.upload_img',array("input_id"=>md5("thumb"),"input_name"=>"thumb"))
+                    <small class="form-text text-muted"></small>
+                </div>--}}
+
+                <div class="form-group">
+                    <label for="url">多图</label>
+                    @include('admin.component.upload_imgs',array("input_id"=>md5("thumb1"),"input_name"=>"thumb"))
                     <small class="form-text text-muted"></small>
                 </div>
 

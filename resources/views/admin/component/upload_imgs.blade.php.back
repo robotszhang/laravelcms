@@ -3,7 +3,7 @@
     @include('admin.component.uploadImgsResize',array())
     必填：input_id,input_name
     可选：width、height、size（单位M）
-    赋值：input_value
+    赋值：md5s
     优先按宽度缩放，其次按高度，都未定义则上传原图
 --}}
 
@@ -36,14 +36,17 @@
         <input type="file" name="files[]" class="hide">
     </label>
 
-    <input type="hidden" name="{{$input_name}}" value="{{$input_value}}">
+    <input type="hidden" data-o="{{$input_value}}" name="{{$input_name}}" value="{{$input_value}}">
+    <input type="hidden" name="pic_not_use_id[]" value="">
+    <input type="hidden" name="pic_use_id[]" value="">
+
 
     <div class="m-uploadimg-group">
         <ul>
             @foreach($arr as $vo)
                 @if($vo)
-                    <li data-path="{{$vo}}">
-                        <img src="{{$vo}}"/>
+                    <li data-md5="{{$vo}}">
+                        <img src="/image/{{$vo}}"/>
                         {{--<span class="size">{{ $vo['width'] or '' }}×{{ $vo['height'] or '' }}</span>--}}
                         <a class="prev">‹</a>
                         <a class="next">›</a>
@@ -96,7 +99,7 @@
             $boot.warn({text:res.msg});
         }else {
             //添加到ul后面
-            add_group{{ $input_id }}(res.data.path,res.data.width,res.data.height);
+            add_group{{ $input_id }}(res.data.md5,res.data.width,res.data.height);
 
             //重新计算input值、no_use_id、use_id
             reset_group{{ $input_id }}();
@@ -123,21 +126,26 @@
 
 
     //插入新图片
-    function add_group{{ $input_id}}($path,$width,$height){
-        var $a = $("#upload-{{$input_id}} .fun-li-clone").clone(true).removeClass().attr('data-path',$path); //移除所有class
+    function add_group{{ $input_id}}($md5,$width,$height){
+        var $a = $("#upload-{{$input_id}} .fun-li-clone").clone(true).removeClass().attr('data-md5',$md5); //移除所有class
         $a.find('.size').text($width+"×"+$height);
-        $a.find('img').attr('src',$path);
+        $a.find('img').attr('src','/image/'+$md5);
         $a.appendTo('#upload-{{$input_id}} ul');
     };
 
     //重新计算
     function reset_group{{ $input_id}}(){
+        //原md5值赋给not_use
+        var $old_md5 = $("input[name='{{$input_name}}']").attr('data-o');
+        $("#upload-{{$input_id}}").find("input[name='pic_not_use_id[]']").val($old_md5);
         //取新的md5值
         var $new_mds = [];
         $("#upload-{{$input_id}} ul li").each(function(){
-            $new_mds.push($(this).attr('data-path'));
+            $new_mds.push($(this).attr('data-md5'));
         });
         $new_mds = $new_mds.join(',');
+        //新md5值赋给use
+        $("#upload-{{$input_id}}").find("input[name='pic_use_id[]']").val($new_mds);
         //新md5值赋给input
         $("input[name='{{$input_name}}']").val($new_mds);
     }
@@ -147,7 +155,7 @@
         //取新的md5值
         var $new_mds = [];
         $("#upload-{{$input_id}} ul li").each(function(){
-            $new_mds.push($(this).attr('data-path'));
+            $new_mds.push($(this).attr('data-md5'));
         });
         $new_mds = $new_mds.join(',');
         //新md5值赋给input
