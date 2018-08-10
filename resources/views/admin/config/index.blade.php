@@ -23,7 +23,7 @@
                 <label><span class="text-danger">* </span>参数分类</label>
                 <select class="form-control" name="cate_id" lay-filter="type">
                     @foreach($cate as $vo)
-                        <option value="{{$vo->id}}">{{$vo->name}}</option>
+                        <option value="{{$vo->id}}" @if(isset($_GET['cate_id']) && $vo->id == $_GET['cate_id']) selected @endif>{{$vo->name}}</option>
                     @endforeach
                 </select>
             </div>

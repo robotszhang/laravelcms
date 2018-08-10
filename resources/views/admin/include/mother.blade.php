@@ -31,7 +31,7 @@
 
 </script>
 
-<script src="/resources/admin/js/my.js"></script>
+<script src="/resources/admin/js/my.js?v={{time()}}"></script>
 
 </body>
 </html>

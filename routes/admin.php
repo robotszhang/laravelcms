@@ -84,7 +84,9 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
             Route::match(['get','post'],'/create', 'ArticleController@create');  //创建文章
             Route::match(['get','post'],'/edit','ArticleController@edit');  //编辑文章
             Route::match(['post'],'/ajax_del','ArticleController@ajaxDel');  //删除文章
-            Route::match(['post'],'/ajax_move','ArticleController@ajaxMove');  //移动文章
+            Route::match(['post'],'/ajax_move_content','ArticleController@ajaxMoveContent');  //移动文章
+            Route::match(['post'],'/ajax_stick','ArticleController@ajaxStick');  //移动文章
+            Route::match(['post'],'/ajax_unstick','ArticleController@ajaxUnstick');  //移动文章
             Route::match(['post'],'/ajax_exattr','ArticleController@ajaxExattr');  //ajax获取附加字段[,值]
         });
 
@@ -108,6 +110,9 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
         // ———————————————————————————留言—————————————————————————————————
         Route::group(['prefix' => 'guestbook'],function(){
             Route::get('/', 'GuestbookController@index');  //留言列表
+            Route::match(['get','post'],'/create', 'GuestbookController@create');  //新增留言
+            Route::match(['get','post'],'/edit', 'GuestbookController@edit');  //编辑留言
+            Route::match(['post'],'/ajax_del', 'GuestbookController@ajaxDel');  //删除留言
         });
 
         // ———————————————————————————地图—————————————————————————————————

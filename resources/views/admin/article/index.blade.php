@@ -66,6 +66,9 @@
                 @if($vo->thumb)
                     <span class="badge badge-warning">图</span>
                 @endif
+                @if($vo->is_stick)
+                    <span class="badge badge-info">置顶</span>
+                @endif
             </td>
             <td>
                 {{$vo->cate->name_cn or ''}}
@@ -84,13 +87,19 @@
                 {{$vo->updated_at->format('Y-m-d H:i')}}
             </td>
             <td>
-                <a class="btn btn-sm btn-outline-secondary" href="{{url('/admin/article/edit?id='.$vo['id'])}}" role="button"><i class="fa fa-edit"></i> 编辑</a>
+                <a class="btn btn-sm btn-outline-secondary" href="{{url('/admin/article/edit?id='.$vo->id)}}" role="button"><i class="fa fa-edit"></i> 编辑</a>
                 <div class="btn-group" role="group">
                     <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         更多
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" onclick="return del_one({{$vo['id']}});"><i class="fa fa-trash"></i> 删除</a>
+                        @if($vo->is_stick == 0)
+                        <a class="dropdown-item" href="#" onclick="return stick_one('article','{{$vo->id}}');"><i class="fa fa-level-up"></i> 置顶</a>
+                        @endif
+                        @if($vo->is_stick == 1)
+                        <a class="dropdown-item" href="#" onclick="return unstick_one('article','{{$vo->id}}');"><i class="fa fa-level-down"></i> 取消置顶</a>
+                        @endif
+                        <a class="dropdown-item" href="#" onclick="return del_one('article','{{$vo->id}}');"><i class="fa fa-trash"></i> 删除</a>
                     </div>
                 </div>
             </td>
@@ -109,14 +118,14 @@
                 <label class="js-move-tip">移动到以下菜单下</label>
                 <select class="form-control" name="move_to_id">
                     @foreach($cate as $vo)
-                        <option @if($vo['is_able'] == 9) disabled @endif value="{{$vo['id']}}">{{$vo['depth_name']}}{{$vo['name_cn']}}({{$vo['count']}})
+                        <option @if($vo['is_able'] == 9) disabled @endif value="{{$vo['id']}}">{!! $vo['depth_name'] !!}{{$vo['name_cn']}}({{$vo['count']}})
                         </option>
                     @endforeach
                 </select>
             </div>
             <div class="h10"></div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary" onclick="return ajax_move_all();">移动</button>
+                <button type="submit" class="btn btn-primary" onclick="return move_content_all('article',$('select[name=move_to_id]').val());">移动</button>
             </div>
         </div>
     </div>
@@ -166,30 +175,6 @@
                 return false;
             }
             $boot.win({id:'#win1','title':'移动分类'});
-            return false;
-        }
-        //移动文章all
-        function ajax_move_all(){
-            var ids = [];
-            $('.checkbox-item').filter(':checked').each(function(){
-                ids.push($(this).attr('data-id'));
-            });
-            var move_to_id = $('select[name=move_to_id]').val();
-            $.ajax({
-                type:'post',
-                url:'/admin/article/ajax_move',
-                data:{ids:ids,move_to_id:move_to_id},
-                success:function(res){
-                    if(res.status == 0){
-                        $boot.error({text:res.msg});
-                    }else{
-                        $boot.success({text:res.msg},function(){
-                            window.location = window.location;
-                        });
-
-                    }
-                }
-            });
             return false;
         }
 

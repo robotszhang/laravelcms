@@ -23,7 +23,24 @@ class Config extends Model
     protected function toItem(){
         $list = $this->select('key','value')->get();
         foreach($list as $val){
-            $data[$val->key] = $val->value;
+            if($val->key == 'talk_qq' || $val->key == 'talk_phone'){
+                $val->value = str_replace('：',':',$val->value);
+                $arr = [];
+                $a = explode('|',$val->value);
+
+                foreach($a as $v){
+                    $b = explode(':',$v);
+                    if(count($b) > 1){
+                        $arr[] = ['key'=>$b[0],'value'=>$b[1]];
+                    }else{
+                        $arr[] = ['key'=>'','value'=>''];
+                    }
+                }
+                $data[$val->key] = $arr;
+            }else{
+                $data[$val->key] = $val->value;
+            }
+
         }
         return $data;
     }

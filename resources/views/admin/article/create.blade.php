@@ -82,7 +82,7 @@
                             <label class="custom-control-label" for="is_show1">开启</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="is_show2" name="is_show" class="custom-control-input" value="9">
+                            <input type="radio" id="is_show2" name="is_show" class="custom-control-input" value="0">
                             <label class="custom-control-label" for="is_show2">关闭</label>
                         </div>
                     </div>
