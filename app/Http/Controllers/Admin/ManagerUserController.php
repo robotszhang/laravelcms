@@ -155,6 +155,31 @@ class ManagerUserController extends Controller
 
 
     /**
+     * 修改密码
+     * @author zjf ${date}
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function ajax_repass(Request $request){
+        if(!$request->password){
+            return response()->json(['status'=>0,'msg'=>'新密码不能为空','field'=>'password']);
+        }
+        if(!$request->repass){
+            return response()->json(['status'=>0,'msg'=>'重复密码不能为空','field'=>'repass']);
+        }
+        if($request->repass != $request->password){
+            return response()->json(['status'=>0,'msg'=>'两次输入不一致','field'=>'password']);
+        }
+        $res = ManagerUser::where('id',$request->id)->update(['password'=>bcrypt($request->password)]);
+        if($res){
+            return response()->json(['status'=>1,'msg'=>'密码修改成功']);
+        }else{
+            return response()->json(['status'=>0,'msg'=>'密码修改失败']);
+        }
+    }
+
+
+    /**
      * 显示一个用户的权限
      * @author zjf ${date}
      * @param Request $request

@@ -48,7 +48,8 @@
                                 更多
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" onclick="return del_user({{$vo['id']}});"><i class="fa fa-trash"></i>删除</a>
+                                <a class="dropdown-item" href="#" onclick="return del_user({{$vo['id']}});"><i class="fa fa-trash"></i>删除</a>
+                                <a class="dropdown-item" href="#" onclick="return alert_repass({{$vo['id']}});"><i class="fa fa-key"></i>修改密码</a>
                             </div>
                         </div>
                     </div>
@@ -58,9 +59,29 @@
 
     </table>
 
+    <!--显示权限-->
     <div id="permission" class="hide">
         <div class="js-permission-con">
             权限
+        </div>
+    </div>
+
+
+    <div id="win_repass" class="hide">
+        <div class="js-repass">
+            <input name="id" type="hidden" value="">
+            <div class="form-group">
+                <label class="js-move-tip">新密码</label>
+                <input class="form-control form-control-sm" name="password" type="password" value="" />
+            </div>
+            <div class="form-group">
+                <label class="js-move-tip">再次输入</label>
+                <input class="form-control form-control-sm" name="repass" type="password" value="" />
+            </div>
+            <div class="h10"></div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary" onclick="return repass();">确认</button>
+            </div>
         </div>
     </div>
 
@@ -77,6 +98,36 @@
                     }else{
                         $('.js-permission-con').html(res.body);
                         $boot.win({id:'#permission',size:'lg',title:name+'的权限'});
+                    }
+                }
+            });
+            return false;
+        }
+
+        //弹出修改密码框
+        var win_repass;
+        function alert_repass(id){
+            win_repass = $boot.win({id:'#win_repass','title':'修改密码'});
+            $(".js-repass").find('input[name=id]').val(id);
+            return false;
+        }
+        function repass(){
+            var data = {
+                id:$(".js-repass").find('input[name=id]').val(),
+                password:$(".js-repass").find('input[name=password]').val(),
+                repass:$(".js-repass").find('input[name=repass]').val()
+            };
+            $.ajax({
+                type:'post',
+                url:'/admin/manager_user/ajax_repass',
+                data:data,
+                success:function(res){
+                    if(res.status == 0){
+                        $boot.warn({text:res.msg});
+                    }else{
+                        $boot.success({text:res.msg},function(){
+                            win_repass.close();
+                        });
                     }
                 }
             });

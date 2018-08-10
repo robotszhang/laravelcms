@@ -24,19 +24,19 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        $powers = \App\Models\ManagerPower::with('roles')->get();//得到所有权限列表
-        //$powers1 = \App\Models\ManagerPower::with('roles')->pluck('name');//得到所有权限列表
-        //dd($powers1);
-        foreach($powers as $power){//对每一个权限使用Gate进行注册，判断用户是否拥有此权限
-            Gate::define($power->name, function ($user) use($power){
-                /*$is_admin = $user->roles()->where('name','=','超级管理员')->first();
-                if($is_admin){
-                    return true;
-                }*/
+
+
+
+        Gate::define('manager_power', function ($user) {
+            return false;
+        });
+
+        /*$powers = \App\Models\ManagerPower::with('roles')->get();//得到所有权限列表
+        foreach($powers as $power) {//对每一个权限使用Gate进行注册，判断用户是否拥有此权限
+            Gate::define($power->name, function ($user) use ($power) {
                 return $user->hasPower($power);
             });
-        }
+        }*/
 
-        //
     }
 }

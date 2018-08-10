@@ -14,7 +14,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
 
         // ———————————————————————————后台菜单管理—————————————————————————————————
         Route::group(['prefix' => 'manager_menu'],function(){
-            Route::get('/', 'ManagerMenuController@index')->middleware('can:manager_menu');  //菜单列表
+            Route::get('/', 'ManagerMenuController@index');//->middleware('can:manager_menu');  //菜单列表
             Route::match(['post'],'/ajax_create', 'ManagerMenuController@ajaxCreate');//->middleware('can:manager_menu_create');  //创建菜单
             Route::match(['get','post'],'/edit','ManagerMenuController@edit');//->middleware('can:manager_menu_edit');  //编辑菜单
             Route::match(['post'],'/ajax_del','ManagerMenuController@ajaxDel');//->middleware('can:manager_menu_del');  //删除菜单
@@ -45,6 +45,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
             Route::match(['get','post'],'/edit','ManagerUserController@edit');  //编辑管理员
             Route::match(['post'],'/ajax_del','ManagerUserController@ajaxDel');  //删除管理员
             Route::match(['post'],'/ajax_page_powers','ManagerUserController@ajax_page_powers');  //显示权限
+            Route::match(['post'],'/ajax_repass','ManagerUserController@ajax_repass');  //修改密码
         });
 
         // ———————————————————————————网站导航—————————————————————————————————

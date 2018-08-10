@@ -14,23 +14,23 @@ $boot.confirm = function(obj,callback){
         var $dom = $('#js-boot-confirm');
     }else{
         var $dom = $(
-        '<div class="modal fade" id="js-boot-confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'+
+            '<div class="modal fade" id="js-boot-confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'+
             '<div class="modal-dialog" role="document">'+
-                '<div class="modal-content">'+
-                    '<div class="modal-header">'+
-                        '<h5 class="modal-title" id="js-boot-confirm-title">提示</h5>'+
-                        '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
-                            '<span aria-hidden="true">&times;</span>'+
-                        '</button>'+
-                    '</div>'+
-                    '<div class="modal-body" id="js-boot-confirm-body"></div>'+
-                    '<div class="modal-footer">'+
-                        '<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>'+
-                        '<button type="button" class="btn btn-primary" id="js-yes">确定</button>'+
-                    '</div>'+
-                '</div>'+
+            '<div class="modal-content">'+
+            '<div class="modal-header">'+
+            '<h5 class="modal-title" id="js-boot-confirm-title">提示</h5>'+
+            '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+            '<span aria-hidden="true">&times;</span>'+
+            '</button>'+
             '</div>'+
-        '</div>');
+            '<div class="modal-body" id="js-boot-confirm-body"></div>'+
+            '<div class="modal-footer">'+
+            '<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>'+
+            '<button type="button" class="btn btn-primary" id="js-yes">确定</button>'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '</div>');
     }
     $dom.find('#js-boot-confirm-title').text(obj.title?obj.title:'提示');
     $dom.find('#js-boot-confirm-body').text(obj.text);
@@ -56,13 +56,13 @@ $boot.success = function(obj,callback){
         var $dom = $('#js-boot-success');
     }else{
         var $dom = $(
-        '<div class="modal fade" id="js-boot-success" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'+
+            '<div class="modal fade" id="js-boot-success" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'+
             '<div class="modal-dialog" role="document">'+
-                '<div class="modal-content" style="border: none;">'+
-                    '<div style="margin:0; text-align: center;" class="alert alert-success" role="alert" id="js-boot-success-body"></div>'+
-                '</div>'+
+            '<div class="modal-content" style="border: none;">'+
+            '<div style="margin:0; text-align: center;" class="alert alert-success" role="alert" id="js-boot-success-body"></div>'+
             '</div>'+
-        '</div>');
+            '</div>'+
+            '</div>');
     }
     $dom.find('#js-boot-success-body').text(obj.text);
     $dom.appendTo('body').modal({show:true,focus:false,backdrop:false});
@@ -86,13 +86,13 @@ $boot.error = function(obj,callback){
         var $dom = $('#js-boot-error');
     }else{
         var $dom = $(
-        '<div class="modal fade" id="js-boot-error" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'+
+            '<div class="modal fade" id="js-boot-error" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'+
             '<div class="modal-dialog" role="document">'+
-                '<div class="modal-content" style="border: none;">'+
-                    '<div style="margin:0;text-align: center;" class="alert alert-danger" role="alert" id="js-boot-error-body"></div>'+
-                '</div>'+
+            '<div class="modal-content" style="border: none;">'+
+            '<div style="margin:0;text-align: center;" class="alert alert-danger" role="alert" id="js-boot-error-body"></div>'+
             '</div>'+
-        '</div>');
+            '</div>'+
+            '</div>');
     }
     $dom.find('#js-boot-error-body').text(obj.text);
     $dom.appendTo('body').modal({show:true,focus:false,backdrop:false});
@@ -116,13 +116,13 @@ $boot.warn = function(obj,callback){
         var $dom = $('#js-boot-warn');
     }else{
         var $dom = $(
-        '<div class="modal fade" id="js-boot-warn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'+
+            '<div class="modal fade" id="js-boot-warn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'+
             '<div class="modal-dialog" role="document">'+
-                '<div class="modal-content" style="border: none;">'+
-                    '<div style="margin:0;text-align: center;" class="alert alert-warning" role="alert" id="js-boot-warn-body"></div>'+
-                '</div>'+
+            '<div class="modal-content" style="border: none;">'+
+            '<div style="margin:0;text-align: center;" class="alert alert-warning" role="alert" id="js-boot-warn-body"></div>'+
             '</div>'+
-        '</div>');
+            '</div>'+
+            '</div>');
     }
     $dom.find('#js-boot-warn-body').text(obj.text);
     $dom.appendTo('body').modal({show:true,focus:false,backdrop:false});
@@ -146,22 +146,22 @@ $boot.alert = function(obj){
         var $dom = $('#js-boot-alert');
     }else{
         var $dom = $(
-        '<div class="modal fade" id="js-boot-alert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'+
+            '<div class="modal fade" id="js-boot-alert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'+
             '<div class="modal-dialog" role="document">'+
-                '<div class="modal-content">'+
-                    '<div class="modal-header">'+
-                        '<h5 class="modal-title" id="js-boot-alert-title">提示</h5>'+
-                        '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
-                            '<span aria-hidden="true">&times;</span>'+
-                        '</button>'+
-                    '</div>'+
-                    '<div class="modal-body" id="js-boot-confirm-body"></div>'+
-                    '<div class="modal-footer">'+
-                        '<button type="button" class="btn btn-primary" data-dismiss="modal">知道了</button>'+
-                    '</div>'+
-                '</div>'+
+            '<div class="modal-content">'+
+            '<div class="modal-header">'+
+            '<h5 class="modal-title" id="js-boot-alert-title">提示</h5>'+
+            '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+            '<span aria-hidden="true">&times;</span>'+
+            '</button>'+
             '</div>'+
-        '</div>');
+            '<div class="modal-body" id="js-boot-confirm-body"></div>'+
+            '<div class="modal-footer">'+
+            '<button type="button" class="btn btn-primary" data-dismiss="modal">知道了</button>'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '</div>');
     }
     $dom.find('#js-boot-alert-title').text(obj.title?obj.title:'提示');
     $dom.find('#js-boot-alert-body').text(obj.text);
@@ -178,24 +178,22 @@ $boot.win = function(obj,obj_callback){
     if(!obj.id){
         return false;
     }
-    if($('#js-boot-win').length){
-        var $dom = $('#js-boot-win');
-    }else{
-        var $dom = $(
-            '<div class="modal fade" id="js-boot-win" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'+
-                '<div class="modal-dialog" role="document">'+
-                    '<div class="modal-content">'+
-                        '<div class="modal-header">'+
-                            '<h5 class="modal-title" id="js-boot-win-title"></h5>'+
-                            '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
-                                '<span aria-hidden="true">&times;</span>'+
-                            '</button>'+
-                        '</div>'+
-                        '<div class="modal-body" id="js-boot-win-body"></div>'+
-                    '</div>'+
-                '</div>'+
-            '</div>');
-    }
+    $('#js-boot-win').remove();
+    var $dom = $(
+        '<div class="modal fade" id="js-boot-win" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'+
+        '<div class="modal-dialog" role="document">'+
+        '<div class="modal-content">'+
+        '<div class="modal-header">'+
+        '<h5 class="modal-title" id="js-boot-win-title"></h5>'+
+        '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+        '<span aria-hidden="true">&times;</span>'+
+        '</button>'+
+        '</div>'+
+        '<div class="modal-body" id="js-boot-win-body"></div>'+
+        '</div>'+
+        '</div>'+
+        '</div>');
+
     if(obj.size=='lg'){
         $dom.find('.modal-dialog').addClass('modal-lg');
     }else{
@@ -208,42 +206,34 @@ $boot.win = function(obj,obj_callback){
     $dom.on('hidden.bs.modal', function (e) {
         $(obj.id).append($dom.find('#js-boot-win-body').children());
     })
-    $dom.modal({show:true,focus:false});
-}
 
-/**
- * win框-无标题栏
- * @param obj  {id:'#as',size:'lg'}  id:页面中载入的内容块id,size:窗体大小设置，默认小窗口
- * @returns {boolean}
- */
-$boot.win_pure = function(obj,obj_callback){
-    if(!obj.id){
-        return false;
-    }
-    if($('#js-boot-win-pure').length){
-        var $dom = $('#js-boot-win-pure');
-    }else{
-        var $dom = $(
-            '<div class="modal fade" id="js-boot-win-pure" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'+
-            '<div class="modal-dialog" role="document">'+
-            '<div class="modal-content">'+
-            '<div class="modal-body" id="js-boot-win-body"></div>'+
-            '</div>'+
-            '</div>'+
-            '</div>');
-    }
-    if(obj.size=='lg'){
-        $dom.find('.modal-dialog').addClass('modal-lg');
-    }else{
-        $dom.find('.modal-dialog').removeClass('modal-lg');
-    }
-    $dom.find('#js-boot-win-body').append($(obj.id).children());
-    $dom.appendTo('body');
 
-    $dom.on('hidden.bs.modal', function (e) {
-        $(obj.id).append($dom.find('#js-boot-win-body').children());
-    })
+    /*if(obj_callback.show){
+        $dom.on('show.bs.modal', function (e) {
+            obj_callback.show(e);
+        })
+    }
+    if(obj_callback.shown){
+        $dom.on('shown.bs.modal', function (e) {
+            obj_callback.show(e);
+        })
+    }
+    if(obj_callback.hide){
+        $dom.on('hide.bs.modal', function (e) {
+            obj_callback.show(e);
+        })
+    }
+    if(obj_callback.hidden){
+        $dom.on('hidden.bs.modal', function (e) {
+            obj_callback.show(e);
+        })
+    }*/
     $dom.modal({show:true,focus:false});
+    $dom.close = function(){
+        //$(obj.id).append($dom.find('#js-boot-win-body').children());
+        $dom.modal('hide');
+    }
+    return $dom;
 }
 
 /**
@@ -253,7 +243,7 @@ $boot.win_pure = function(obj,obj_callback){
  */
 $boot.loading = function(obj){
     obj = obj?obj:{};
-    var str = '<div style=" position: fixed;left:0px;top:0px;width:100%; height: 100%;background:'+(obj.bg?obj.bg:'rgba(0,0,0,0)')+';z-index:1051;transition: all 1s;-webkit-transition: all 1s;-moz-transition: all 1s;-o-transition: all 1s;"><div style="position:absolute;background:rgba(0,0,0,0.6);left:50%;top:50%;width:120px;height: 120px;margin:-60px 0 0 -60px; z-index:1052;transition: all 1s;-webkit-transition: all 1s;-moz-transition: all 1s;-o-transition: all 1s; text-align: center;border-radius:10px;"><img src="/resources/bootstrap/loading.gif" style="width:60px; height: 60px;margin:15px 0 0 0;" /><div style="text-align: center;color:#fff;">'+(obj.text?obj.text:'')+'</div></div></div>';
+    var str = '<div style=" position: fixed;left:0px;top:0px;width:100%; height: 100%;background:'+(obj.bg?obj.bg:'rgba(0,0,0,0)')+';z-index:1051;transition: all 1s;-webkit-transition: all 1s;-moz-transition: all 1s;-o-transition: all 1s;"><div style="position:absolute;background:rgba(0,0,0,0.6);left:50%;top:50%;width:120px;height: 120px;margin:-60px 0 0 -60px; z-index:1052;transition: all 1s;-webkit-transition: all 1s;-moz-transition: all 1s;-o-transition: all 1s; text-align: center;border-radius:10px;"><img src="/Public/bootstrap/loading.gif" style="width:60px; height: 60px;margin:15px 0 0 0;" /><div style="text-align: center;color:#fff;">'+(obj.text?obj.text:'')+'</div></div></div>';
     var $dom = $(str);
     $dom.appendTo('body');
     $dom.close = function(){
