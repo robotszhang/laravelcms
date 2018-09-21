@@ -37,7 +37,7 @@
             </div>
         @endforeach
 
-        <div class="g-vision">{{date('Y')}}© </div>
+        <div class="g-vision">{{date('Y')}}© {{$config['sitename'] or ''}}</div>
     </div>
 
 

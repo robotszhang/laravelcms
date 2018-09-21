@@ -8,17 +8,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     @section('cssjs')
+        <script src="/resources/plugs/jquery/jquery-3.3.1.min.js" ></script>
         {{--bootstrap组件--}}
-        <link rel="stylesheet" href="/resources/bootstrap/bootstrap.min.css" >
-        <script src="/resources/bootstrap/jquery.min.js" ></script>
-        <script src="/resources/bootstrap/popper.min.js"></script>
-        <script src="/resources/bootstrap/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/resources/plugs/bootstrap/bootstrap.min.css" >
+        <script src="/resources/plugs/bootstrap/popper.min.js"></script>
+        <script src="/resources/plugs/bootstrap/bootstrap.min.js"></script>
 
         {{--awesome字体--}}
-        <link href="/resources/font/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/resources/plugs/awesome/font/css/font-awesome.min.css" rel="stylesheet">
 
         {{--bootstrap-dialog--}}
-        <script src="/resources/bootstrap/bootstrap.dialog.js"></script>
+        <script src="/resources/plugs/bootstrap/bootstrap.dialog.js"></script>
 
         {{--样式--}}
         <link rel="stylesheet" href="/resources/admin/css/frame.css">

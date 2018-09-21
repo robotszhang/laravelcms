@@ -48,7 +48,8 @@
                                 更多
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" onclick="return del_user({{$vo['id']}});"><i class="fa fa-trash"></i>删除</a>
+                                <a href="#" class="dropdown-item" onclick="return del_user({{$vo['id']}});"><i class="fa fa-trash"></i>删除</a>
+                                <a href="#" class="dropdown-item" onclick="return alert_win_repass({{$vo['id']}});"><i class="fa fa-key"></i>修改密码</a>
                             </div>
                         </div>
                     </div>
@@ -63,7 +64,6 @@
             权限
         </div>
     </div>
-
     <script>
         //显示用户权限
         function alert_powers(name,id){
@@ -82,6 +82,62 @@
             });
             return false;
         }
+    </script>
+
+    <div id="win_repass" class="d-none">
+        <div class="js-win_repass">
+            <input type="hidden" name="id" value="" />
+            <div class="form-group">
+                <label>新密码</label>
+                <input type="text" class="form-control" name="password" placeholder="新密码">
+                <small class="form-text text-muted">1-20个字符，选填</small>
+            </div>
+            <div class="h10"></div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary" onclick="return submit_repass();">确认</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        //弹出修改密码窗口
+        function alert_win_repass(id){
+            $('.js-win_repass').find('input[name=id]').val(id);
+            $boot.win({id:'#win_repass','title':'修改密码'});
+            return false;
+        }
+        //修改密码提交
+        function submit_repass(){
+            if(!$('.js-win_repass').find('input[name=password]').val()){
+                $boot.warn({text:'密码不能为空'});
+                return false;
+            }
+            var data = {
+                id:$('.js-win_repass').find('input[name=id]').val(),
+                password:$('.js-win_repass').find('input[name=password]').val(),
+            };
+            $.ajax({
+                type:'post',
+                url:'/admin/manager_user/ajax_repass',
+                data:data,
+                success:function(res){
+                    if(res.status == 0){
+                        $boot.warn({text:res.msg},function(){
+                            $('.js-win_repass').find('input[name='+res.field+']').focus();
+                        });
+                    }else{
+                        $boot.success({text:res.msg},function(){
+                            window.location = window.location;
+                        });
+                    }
+                }
+            });
+            return false;
+        }
+    </script>
+
+
+
+    <script>
 
         //删除角色
         function del_user(id){

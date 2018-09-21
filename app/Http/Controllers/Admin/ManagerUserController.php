@@ -171,4 +171,37 @@ class ManagerUserController extends Controller
         }
 
     }
+
+
+    public function ajax_repass(Request $request){
+        $rule = [
+            'password' => 'required|between:1,20',
+        ];
+        $message = [
+            'required' => ':attribute不能为空',
+            'password.between' => ':attribute字符长度1-20',
+        ];
+        $replace = [
+            'password' => '密码',
+        ];
+        $validator = Validator::make($request->all(),$rule,$message,$replace);
+        if ($validator->fails()){
+            $a = $validator->errors()->toArray();
+            foreach($a as $k => $v){
+                $data['field'] = $k;
+                $data['msg'] = $v[0];
+                break;
+            }
+            return response()->json(['status'=>0,'msg'=>$data['msg'],'field'=>$data['field']]);
+        }
+
+        $user = ManagerUser::find($request->id);
+        $user->password = bcrypt($request->passwrod);
+        $res = $user->save();
+        if(true == $res){
+            return response()->json(['status'=>1,'msg'=>'密码修改成功']);
+        }else{
+            return response()->json(['status'=>0,'msg'=>'密码修改失败']);
+        }
+    }
 }
