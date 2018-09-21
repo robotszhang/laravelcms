@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 use Validator;
 use App\Models\ArticleCate;
 use App\Models\Article;
@@ -15,7 +17,7 @@ use App\Models\Pic;
  * Class MenuController
  * @package App\Http\Controllers\Admin
  */
-class ArticleController extends BaseController
+class ArticleController extends Controller
 {
 
     /**
@@ -28,7 +30,7 @@ class ArticleController extends BaseController
         if($request->cate_id){
             $where['cate_id'] = $request->cate_id;
         }
-        $sign['list'] = Article::where($where)->orderBy('is_stick','desc')->orderBy('sort','asc')->orderBy('updated_at','desc')->paginate(15);
+        $sign['list'] = Article::where($where)->orderBy('sort','asc')->orderBy('updated_at','desc')->paginate(15);
         //文章分类
         $cate = ArticleCate::getList();
         //dd($cate);
@@ -101,6 +103,36 @@ class ArticleController extends BaseController
             //载入文章分类
             $sign['cate'] = ArticleCate::getList();
             return view('admin.article.create',$sign);
+        }
+    }
+
+    /**
+     * 删除文章
+     * @author my  2017-10-25
+     * @param Request $request 请求
+     * @return array
+     */
+    public function ajaxDel(Request $request){
+        $res = Article::whereIn('id',$request->ids)->delete();
+        if($res){
+            return ['status'=>1,'msg'=>'删除成功'];
+        }else {
+            return ['status'=>0,'msg'=>'删除失败'];
+        }
+    }
+
+    /**
+     * 移动文章到某个分类下
+     * @author my  2017-10-25
+     * @param Request $request 请求
+     * @return array
+     */
+    public function ajaxMove(Request $request){
+        $res = Article::whereIn('id',$request->ids)->update(['cate_id'=>$request->move_to_id]);
+        if($res){
+            return ['status'=>1,'msg'=>'移动成功'];
+        }else {
+            return ['status'=>0,'msg'=>'移动失败'];
         }
     }
 

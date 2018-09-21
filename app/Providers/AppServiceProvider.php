@@ -83,11 +83,13 @@ class AppServiceProvider extends ServiceProvider
         });
 
         //全局写入配置信息
-        \View::composer(['home/*','mobi/*'], function($view){
+        \View::composer('*', function($view){
             //config配置项
             $config = Config::toItem();
             $view->with(['config'=>$config]);
         });
+
+
     }
 
     /**

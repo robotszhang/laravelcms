@@ -14,7 +14,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
 
         // ———————————————————————————后台菜单管理—————————————————————————————————
         Route::group(['prefix' => 'manager_menu'],function(){
-            Route::get('/', 'ManagerMenuController@index');//->middleware('can:manager_menu');  //菜单列表
+            Route::get('/', 'ManagerMenuController@index')->middleware('can:manager_menu');  //菜单列表
             Route::match(['post'],'/ajax_create', 'ManagerMenuController@ajaxCreate');//->middleware('can:manager_menu_create');  //创建菜单
             Route::match(['get','post'],'/edit','ManagerMenuController@edit');//->middleware('can:manager_menu_edit');  //编辑菜单
             Route::match(['post'],'/ajax_del','ManagerMenuController@ajaxDel');//->middleware('can:manager_menu_del');  //删除菜单
@@ -23,7 +23,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
 
         // ———————————————————————————权限管理—————————————————————————————————
         Route::group(['prefix' => 'manager_power'],function(){
-            Route::get('/', 'ManagerPowerController@index')->middleware('can:manager_power');  //权限列表
+            Route::get('/', 'ManagerPowerController@index');//->middleware('can:manager_power');  //权限列表
             Route::match(['post'],'/ajax_create', 'ManagerPowerController@ajaxCreate');//->middleware('can:manager_power_create');  //新增权限
             Route::match(['get','post'],'/edit','ManagerPowerController@edit');//->middleware('can:manager_power_edit');  //编辑权限
             Route::match(['post'],'/ajax_del','ManagerPowerController@ajaxDel');//->middleware('can:manager_power_del');  //删除权限
@@ -45,7 +45,6 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
             Route::match(['get','post'],'/edit','ManagerUserController@edit');  //编辑管理员
             Route::match(['post'],'/ajax_del','ManagerUserController@ajaxDel');  //删除管理员
             Route::match(['post'],'/ajax_page_powers','ManagerUserController@ajax_page_powers');  //显示权限
-            Route::match(['post'],'/ajax_repass','ManagerUserController@ajax_repass');  //修改密码
         });
 
         // ———————————————————————————网站导航—————————————————————————————————
@@ -84,9 +83,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
             Route::match(['get','post'],'/create', 'ArticleController@create');  //创建文章
             Route::match(['get','post'],'/edit','ArticleController@edit');  //编辑文章
             Route::match(['post'],'/ajax_del','ArticleController@ajaxDel');  //删除文章
-            Route::match(['post'],'/ajax_move_content','ArticleController@ajaxMoveContent');  //移动文章
-            Route::match(['post'],'/ajax_stick','ArticleController@ajaxStick');  //移动文章
-            Route::match(['post'],'/ajax_unstick','ArticleController@ajaxUnstick');  //移动文章
+            Route::match(['post'],'/ajax_move','ArticleController@ajaxMove');  //移动文章
             Route::match(['post'],'/ajax_exattr','ArticleController@ajaxExattr');  //ajax获取附加字段[,值]
         });
 
@@ -110,9 +107,6 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
         // ———————————————————————————留言—————————————————————————————————
         Route::group(['prefix' => 'guestbook'],function(){
             Route::get('/', 'GuestbookController@index');  //留言列表
-            Route::match(['get','post'],'/create', 'GuestbookController@create');  //新增留言
-            Route::match(['get','post'],'/edit', 'GuestbookController@edit');  //编辑留言
-            Route::match(['post'],'/ajax_del', 'GuestbookController@ajaxDel');  //删除留言
         });
 
         // ———————————————————————————地图—————————————————————————————————

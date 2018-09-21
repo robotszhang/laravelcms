@@ -1,9 +1,14 @@
 {{--
 上传单张图片组件-调用方法:
     @include('admin.component.uploadImg',array())
-    必填：input_id、input_name
-    可选：size、width、height
-    赋值：input_value
+    必填：
+    input_name
+    width
+    height
+    可选：
+    size kb
+    赋值：
+    md5
 --}}
 
 <style>
@@ -16,41 +21,45 @@
 </style>
 
 
-<div id="upload-{{$input_id}}">
+<div id="upload-{{$input_name}}">
 
-    <label id="{{$input_id}}_btn" class="u-dmuploader">
+    <label id="{{$input_name}}_btn" class="u-dmuploader">
         <span role="button" class="btn btn-sm btn-primary" style="width:150px;"><span class="fa fa-upload"></span> 上传图片</span>
         <input type="file" name="files[]" class="hide">
     </label>
 
 
-    <input type="hidden" data-o="{{$input_value or ''}}" name="{{$input_name}}" value="{{$input_value or ''}}">
+    <input type="hidden" data-o="{{$md5 or ''}}" name="{{$input_name}}" value="{{$md5 or ''}}">
     <input type="hidden" name="pic_not_use_id[]" value="">
     <input type="hidden" name="pic_use_id[]" value="">
 
     <div class="m-uploadimg-one">
-        <img id="{{$input_id}}_img" src="{{isset($input_value)&&$input_value?'/image/'.$input_value:'/resources/admin/images/nopicture.png'}}">
+        <img id="{{$input_name}}_img" src="{{isset($md5)?'/image/'.$md5:'/resources/admin/images/nopicture.png'}}">
+        @if(isset($md5))
+        <span class="size size-show">{{$width.'×'.$height}}</span>
+        <a class="delete delete-show" data="/resources/admin/images/nopicture.png">×</a>
+        @else
         <span class="size"></span>
         <a class="delete" data="/resources/admin/images/nopicture.png">×</a>
+        @endif
     </div>
 
 </div>
 
 <script>
-(function(){
+
     var loading;
     //插件地址：https://github.com/danielm/uploader
-    $('#{{$input_id}}_btn').dmUploader({
+    $('#{{$input_name}}_btn').dmUploader({
         url: '/admin/upload/ajax_upload_img',
         dataType: 'json',
-        maxFileSize : '{{isset($size)&&$size?$size*1024:(int)ini_get('upload_max_filesize')*1024}}*1024',  //允许上传的大小，单位b
+        maxFileSize : '{{isset($size)&&$size?$size*1024:(int)ini_get('upload_max_filesize')*1024}}*1024',  //允许上传的大小，单位KB
         allowedTypes: 'image/*',
         multiple:false,
         extraData:{
             _token: $('meta[name="csrf-token"]').attr('content'),
             width : '{{$width or 0}}',
             height : '{{$height or 0}}',
-            filepath : '{{$filepath or ''}}',
         },
         onComplete: function(){
             //$.danidemo.addLog('#demo-debug', 'default', 'All pending tranfers completed');
@@ -68,12 +77,12 @@
                 $boot.warn({text:res.msg});
             }else {
                 //赋值操作
-                reset_group{{ $input_id}}(res.data.md5)
+                reset_group{{ $input_name}}(res.data.md5)
 
                 //显示图片
-                $("#{{$input_id}}_img").attr('src',res.data.url);
-                $("#upload-{{$input_id}}").find('.size').addClass('size-show').text(res.data.width+'×'+res.data.height);
-                $("#upload-{{$input_id}}").find('.delete').addClass('delete-show');
+                $("#{{$input_name}}_img").attr('src',res.data.url);
+                $("#upload-{{$input_name}}").find('.size').addClass('size-show').text(res.data.width+'×'+res.data.height);
+                $("#upload-{{$input_name}}").find('.delete').addClass('delete-show');
             }
 
         },
@@ -95,24 +104,26 @@
         }
     });
 
-    //删除当前选中缩略图
-    $("#upload-{{$input_id}} .m-uploadimg-one a.delete").click(function(){
-        var nopicture = $(this).attr('data');
-        $("#upload-{{$input_id}} .m-uploadimg-one").find('img').attr({'src':nopicture});
-        $("#upload-{{$input_id}}").find('input[name="{{ $input_name }}"]').val('');
-        $("#upload-{{$input_id}} .m-uploadimg-one span.size").removeClass('size-show');
-        $("#upload-{{$input_id}}").find('.delete').removeClass('delete-show');
-    });
 
-    //上传图片后重新赋值
-    function reset_group{{ $input_id}}($new_md5){
-        //原md5值赋给not_use
-        var $old_md5 = $("input[name='{{$input_name}}']").attr('data-o');
-        $("#upload-{{$input_id}}").find("input[name='pic_not_use_id[]']").val($old_md5);
-        //新md5值赋给use
-        $("#upload-{{$input_id}}").find("input[name='pic_use_id[]']").val($new_md5);
-        //新md5值赋给input
-        $("input[name='{{$input_name}}']").val($new_md5);
-    }
-})();
+
+//删除当前选中缩略图
+$("#upload-{{$input_name}} .m-uploadimg-one a.delete").click(function(){
+    var nopicture = $(this).attr('data');
+    $("#upload-{{$input_name}} .m-uploadimg-one").find('img').attr({'src':nopicture});
+    $("#upload-{{$input_name}}").find('input[name="{{ $input_name }}"]').val('');
+    $("#upload-{{$input_name}} .m-uploadimg-one span.size").removeClass('size-show');
+    $("#upload-{{$input_name}}").find('.delete').removeClass('delete-show');
+});
+
+//上传图片后重新赋值
+function reset_group{{ $input_name}}($new_md5){
+    //原md5值赋给not_use
+    var $old_md5 = $("input[name='{{$input_name}}']").attr('data-o');
+    $("#upload-{{$input_name}}").find("input[name='pic_not_use_id[]']").val($old_md5);
+    //新md5值赋给use
+    $("#upload-{{$input_name}}").find("input[name='pic_use_id[]']").val($new_md5);
+    //新md5值赋给input
+    $("input[name='{{$input_name}}']").val($new_md5);
+}
+
 </script>

@@ -44,18 +44,11 @@
                     <input type="text" class="form-control" id="url" name="url" placeholder="链接" style="width:400px;" value="{{$article->url or ''}}" />
                     <small class="form-text text-muted">当填写外链时，文章内容将不显示</small>
                 </div>
-                {{--<div class="form-group">
+                <div class="form-group">
                     <label for="url">缩略图</label>
                     @include('admin.component.upload_img',array("input_id"=>md5("thumb"),"input_name"=>"thumb",'input_value'=>$article->thumb,'width'=>200,'height'=>100))
                     <small class="form-text text-muted"></small>
-                </div>--}}
-
-                <div class="form-group">
-                    <label for="url">多图</label>
-                    @include('admin.component.upload_imgs',array("input_id"=>md5("thumb1"),"input_name"=>"thumb",'input_value'=>$article->thumb))
-                    <small class="form-text text-muted"></small>
                 </div>
-
                 <div class="form-group">
                     <label for="sort">排序</label>
                     <input type="text" class="form-control" id="sort" name="sort" placeholder="排序" style="width:400px;" value="{{$article->sort or ''}}" />
@@ -66,11 +59,19 @@
                     <label>状态</label>
                     <div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="is_show1" name="is_show" class="custom-control-input" value="1" @if($article->is_show == 1) checked @endif >
+                            <input type="radio" id="is_show1" name="is_show" class="custom-control-input" value="1"
+                                   @if($article->is_show == 1)
+                                   checked
+                                    @endif
+                            >
                             <label class="custom-control-label" for="is_show1">开启</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="is_show2" name="is_show" class="custom-control-input" value="0" @if($article->is_show == 0) checked @endif >
+                            <input type="radio" id="is_show2" name="is_show" class="custom-control-input" value="9"
+                                   @if($article->is_show == 9)
+                                   checked
+                                    @endif
+                            >
                             <label class="custom-control-label" for="is_show2">关闭</label>
                         </div>
                     </div>

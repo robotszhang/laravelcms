@@ -71,10 +71,7 @@ class UploadController extends Controller
 
         //存储文件
         $filename = md5(time().str_random(40)).".".$image->clientExtension();//新文件名
-        $filepath = 'pic';
-        if($request->filepath){
-            $filepath = $request->filepath;
-        }
+        $filepath = date("Y")."/".date("m")."/".date("d");
         $path = $image->storeAs('public'.'/'.$filepath,$filename);  //起始路径为storage/app
 
         /**

@@ -7,7 +7,6 @@ width:宽度(可选)
 custom:编辑器类型,对应ckeditor/custom下的js名称
 --}}
 <textarea name="{{$input_name}}" class="ckeditor">{{$input_value or ""}}</textarea>
-<script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
 <script>
     var editor_{{$input_name}} = CKEDITOR.replace( '{{$input_name}}', {
         language: 'zh-cn'

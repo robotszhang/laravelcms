@@ -24,10 +24,12 @@
     </label>
 
 
-    <input type="hidden" name="{{$input_name}}" value="{{$input_value or ''}}">
+    <input type="hidden" data-o="{{$input_value or ''}}" name="{{$input_name}}" value="{{$input_value or ''}}">
+    <input type="hidden" name="pic_not_use_id[]" value="">
+    <input type="hidden" name="pic_use_id[]" value="">
 
     <div class="m-uploadimg-one">
-        <img id="{{$input_id}}_img" src="{{isset($input_value)&&$input_value?$input_value:'/resources/admin/images/nopicture.png'}}">
+        <img id="{{$input_id}}_img" src="{{isset($input_value)&&$input_value?'/image/'.$input_value:'/resources/admin/images/nopicture.png'}}">
         <span class="size"></span>
         <a class="delete" data="/resources/admin/images/nopicture.png">×</a>
     </div>
@@ -48,7 +50,6 @@
             _token: $('meta[name="csrf-token"]').attr('content'),
             width : '{{$width or 0}}',
             height : '{{$height or 0}}',
-            filepath : '{{$filepath or ''}}',
         },
         onComplete: function(){
             //$.danidemo.addLog('#demo-debug', 'default', 'All pending tranfers completed');
@@ -66,10 +67,10 @@
                 $boot.warn({text:res.msg});
             }else {
                 //赋值操作
-                reset_group{{ $input_id}}(res.data.path)
+                reset_group{{ $input_id}}(res.data.md5)
 
                 //显示图片
-                $("#{{$input_id}}_img").attr('src',res.data.path);
+                $("#{{$input_id}}_img").attr('src',res.data.url);
                 $("#upload-{{$input_id}}").find('.size').addClass('size-show').text(res.data.width+'×'+res.data.height);
                 $("#upload-{{$input_id}}").find('.delete').addClass('delete-show');
             }
@@ -103,8 +104,14 @@
     });
 
     //上传图片后重新赋值
-    function reset_group{{ $input_id}}($path){
-        $("input[name='{{$input_name}}']").val($path);
+    function reset_group{{ $input_id}}($new_md5){
+        //原md5值赋给not_use
+        var $old_md5 = $("input[name='{{$input_name}}']").attr('data-o');
+        $("#upload-{{$input_id}}").find("input[name='pic_not_use_id[]']").val($old_md5);
+        //新md5值赋给use
+        $("#upload-{{$input_id}}").find("input[name='pic_use_id[]']").val($new_md5);
+        //新md5值赋给input
+        $("input[name='{{$input_name}}']").val($new_md5);
     }
 })();
 </script>

@@ -243,7 +243,10 @@ $boot.win = function(obj,obj_callback){
  */
 $boot.loading = function(obj){
     obj = obj?obj:{};
-    var str = '<div style=" position: fixed;left:0px;top:0px;width:100%; height: 100%;background:'+(obj.bg?obj.bg:'rgba(0,0,0,0)')+';z-index:1051;transition: all 1s;-webkit-transition: all 1s;-moz-transition: all 1s;-o-transition: all 1s;"><div style="position:absolute;background:rgba(0,0,0,0.6);left:50%;top:50%;width:120px;height: 120px;margin:-60px 0 0 -60px; z-index:1052;transition: all 1s;-webkit-transition: all 1s;-moz-transition: all 1s;-o-transition: all 1s; text-align: center;border-radius:10px;"><img src="/Public/bootstrap/loading.gif" style="width:60px; height: 60px;margin:15px 0 0 0;" /><div style="text-align: center;color:#fff;">'+(obj.text?obj.text:'')+'</div></div></div>';
+    if($('#js-boot-loading').length>0){
+        $('#js-boot-loading').remove();
+    }
+    var str = '<div id="js-boot-loading" style=" position: fixed;left:0px;top:0px;width:100%; height: 100%;background:'+(obj.bg?obj.bg:'rgba(0,0,0,0)')+';z-index:1051;transition: all 1s;-webkit-transition: all 1s;-moz-transition: all 1s;-o-transition: all 1s;"><div style="position:absolute;background:rgba(0,0,0,0.6);left:50%;top:50%;width:120px;height: 120px;margin:-60px 0 0 -60px; z-index:1052;transition: all 1s;-webkit-transition: all 1s;-moz-transition: all 1s;-o-transition: all 1s; text-align: center;border-radius:10px;"><img src="/Public/bootstrap/loading.gif" style="width:60px; height: 60px;margin:15px 0 0 0;" /><div style="text-align: center;color:#fff;">'+(obj.text?obj.text:'')+'</div></div></div>';
     var $dom = $(str);
     $dom.appendTo('body');
     $dom.close = function(){
